@@ -1,0 +1,160 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  background-image: url('../files/david-pisnoy-GmN13w9bg8w-unsplash.jpg');
+  background-size: cover;
+  background-position: center;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.card {
+  background-color: white;
+  width: 38%;
+  max-height: 60%;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-left: 45rem;
+}
+
+.admin {
+  text-align: center;
+}
+
+.heading {
+  display: flex;
+  font-size: 30px;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  color: black;
+
+}
+
+.para {
+  display: flex;
+  font-size: 15px;
+  color: black;
+  font-weight: 400;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+::placeholder{
+  color: black;
+}
+.checkbox-container{
+  color: black;
+}
+
+.formone form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  font-family: joan;
+}
+
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  background: transparent;
+}
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  border: 1.5px solid black; 
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background-color: white;
+  margin-bottom: 4rem;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #f0f0f0; 
+  transform: scale(1.02); 
+}
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 40px; 
+  -webkit-text-security: disc; 
+}
+
+.eye-container {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.eye-icon.active {
+  opacity: 0.6;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+  }
+
+  .head {
+    font-size: 30px;
+  }
+
+  .para {
+    font-size: 16px;
+  }
+}
