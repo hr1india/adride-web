@@ -1,28 +1,53 @@
-import React, { useEffect, useState } from "react";
-// import "./styles.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useGetDashboardStatsQuery } from '../slices/dashboardApiSlice';
+import Loader from '../components/Loader';
 
 const DashboardScreen = () => {
-
+  const { data, isLoading, error } = useGetDashboardStatsQuery();
 
   return (
     <>
-    <h1 className='text-center' style={{ color: 'black' }}>Welcome Back, Arwind Kumarswamy!</h1>
-    <h3 className='text-center'>Here's a quick overview of your platform’s performance.</h3>
-    <div className="dashboard-container">
+      <h1 className="text-center" style={{ color: 'black' }}>
+        Welcome Back, Arwind Kumarswamy!
+      </h1>
+      <h3 className="text-center">Here's a quick overview of your platform’s performance.</h3>
 
-
-      <div className="stats-grid">
-        <div className="stat-box yellow">800 <br /> Active Users</div>
-        <div className="stat-box pink">₹13,500 <br /> Total Earnings</div>
-        <div className="stat-box light-yellow">25 <br /> Pending Approvals</div>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <div>Error loading dashboard data</div>
+      ) : (
+        <div className="dashboard-container">
+          <div className="stats-grid">
+            <div className="stat-box yellow">
+              {data.activeUsers} <br /> Active Users
+            </div>
+            {/* <div className="stat-box pink">
+              ₹{data.totalEarnings} <br /> Total Earnings
+            </div> */}
+            <div className="stat-box light-yellow">
+              {data.pendingApprovals} <br /> Pending User Approvals
+            </div>
+          </div>
+          <div className="stats-grid1">
+            <div className="stat-box1 red">
+              {data.totalApprovals} <br /> Total User Approved
+            </div>
+            {/* <div className="stat-box1 yellow">
+              {data.platformEngagement} Users/week <br /> Platform Engagement
+            </div> */}
+            <div className="stat-box1 yellow">
+              {data.HelmetAds}<br /> Total Helmet Ads
+            </div>
+            <div className="stat-box1 light-yellow">
+              {data.AutowalaAds} <br /> Total Auto Ads
+            </div>
+            <div className="stat-box1 red">
+              {data.WallAds} <br /> Total Wall Ads
+            </div>
+          </div>
         </div>
-        <div className="stats-grid1">
-        <div className="stat-box1 red">250 <br /> Total Ads Approved</div>
-        <div className="stat-box1 yellow">1.5K Users/week <br /> Platform Engagement</div>
-      </div>
-    </div>
+      )}
     </>
   );
 };
