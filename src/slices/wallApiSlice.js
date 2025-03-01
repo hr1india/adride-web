@@ -15,7 +15,14 @@ export const wallApiSlice = apiSlice.injectEndpoints({
             }),
             keepUnusedDataFor: 5,
         }),
+        changeAdStatus: builder.mutation({
+            query: ({Id, data} ) => ({
+                url: `${WALLS_URL}/change-status/${Id}`,
+                method: 'PUT',
+                body: data,
+            }),
+        }),
     })
 });
 
-export const {useGetWallsQuery,useGetWallsByIdQuery} = wallApiSlice;
+export const {useGetWallsQuery, useGetWallsByIdQuery, useChangeAdStatusMutation} = wallApiSlice;
