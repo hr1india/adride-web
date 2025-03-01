@@ -1,22 +1,52 @@
 import { useParams } from "react-router-dom";
-import { useGetWallsByIdQuery } from "../slices/wallApiSlice";
-import { Button,Col,Row} from "react-bootstrap"
+import { useGetWallsByIdQuery, useChangeAdStatusMutation } from "../slices/wallApiSlice";
+import { Button, Col, Row } from "react-bootstrap"
 import Loader from "../components/Loader";
+import axios from "axios";
+import { BASE_URL, WALLS_URL } from "../constants";
 
 const AdDetailsScreen = () => {
   const { id } = useParams();
   const { data: ads, error, isLoading } = useGetWallsByIdQuery(id);
+  const [changeAdStatus] = useChangeAdStatusMutation();
+
   const ad = ads?.wallAd || {};
 
   const availableFrom = new Date(ad.availableFrom);
   const availableTo = new Date(ad.availableTo);
   const duration = Math.ceil((availableTo - availableFrom) / (1000 * 60 * 60 * 24));
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
   if (error) return <p>Error loading ad details.</p>;
+
+  const handleApprove = async () => {
+    let typeOfAd = ad.type;
+    console.log(typeOfAd)
+    try {
+      const res = await axios.put(`${BASE_URL}${WALLS_URL}/change-status/${id}`, {
+        status: "approved",
+      });
+      alert("Ad Approved ... reload the page to see the changes");
+      console.log("Ad Approved:", res);
+    } catch (err) {
+      console.error("Error approving ad:", err);
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      const res = await axios.put(`${BASE_URL}${WALLS_URL}/change-status/${id}`, {
+        status: "rejected",
+      });
+      alert("Ad Rejected ... reload the page to see the changes");
+      console.log("Ad Rejected:", res);
+    } catch (err) {
+      console.error("Error rejecting ad:", err);
+    }
+  }
 
   return (
     <div className="max-w-lg mx-auto p-4 border rounded-lg shadow-lg bg-white">
-   <div className="flex justify-center">
+      <div className="flex justify-center">
         <div style={{ width: '50%' }}>
           <img
             src={ad.imageUrl}
@@ -30,22 +60,32 @@ const AdDetailsScreen = () => {
       <p><strong>Name:</strong> {ad.wallName}</p>
       <p><strong>Address:</strong> {ad.location}</p>
       <p><strong>Duration:</strong> {duration} Days</p>
-      
+
       <h2 className="text-xl font-bold mt-4 mb-2">Description:</h2>
       <p>{ad.description}</p>
       <p><strong>Price:</strong> ₹{ad.monthlyPrice}</p>
-      
-        <Row>
-      <Col sm={12} md={6} lg={4} xl={4}>
-      <Button variant='success' className='w-10 mt-3 ' style={{ backgroundColor: 'green' }}>
+
+      <Row>
+        <Col sm={12} md={6} lg={4} xl={4}>
+          <Button
+            variant='success'
+            className='w-10 mt-3 '
+            style={{ backgroundColor: 'green' }}
+            onClick={handleApprove}
+          >
             Approve Ad
-        </Button>
-        <Button variant='danger' className='w-10 mt-3' style={{ backgroundColor: 'red' }}>
-        Reject Ad
-        </Button>
+          </Button>
+          <Button 
+            variant='danger' 
+            className='w-10 mt-3' 
+            style={{ backgroundColor: 'red' }}
+            onClick={handleReject}
+            >
+            Reject Ad
+          </Button>
         </Col>
-        </Row>
-        </div>
+      </Row>
+    </div>
   );
 };
 

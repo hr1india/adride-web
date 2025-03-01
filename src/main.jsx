@@ -9,6 +9,8 @@ import NewAdsScreen from './screens/NewAdsScreen'
 import DashboardScreen from './screens/DashboardScreen'
 import AnalyticsScreen from './screens/AnalyticsScreen'
 import AdDetailsScreen from './screens/AdDetailsScreen.jsx'
+import ApprovedAds from './components/ApprovedAds.jsx'
+import RejectedAds from './components/RejectedAds.jsx'
 import store from './store'
 import './index.css'
 import App from './App.jsx'
@@ -22,6 +24,8 @@ const routes = createBrowserRouter(
       <Route  path="ads" element={<NewAdsScreen />} />
       <Route  path="analytics" element={<AnalyticsScreen />} />
       <Route path="/ad-details/:id" element={<AdDetailsScreen />} />
+      <Route path="/approved-ads" element={<ApprovedAds />} />
+      <Route path="/rejected-ads" element={<RejectedAds />} />
     </Route>
   )
 )

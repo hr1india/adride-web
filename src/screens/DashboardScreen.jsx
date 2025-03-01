@@ -8,7 +8,7 @@ const DashboardScreen = () => {
   return (
     <>
       <h1 className="text-center" style={{ color: 'black' }}>
-        Welcome Back, Arwind Kumarswamy!
+        Welcome Back, Admin!
       </h1>
       <h3 className="text-center">Here's a quick overview of your platform’s performance.</h3>
 

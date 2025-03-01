@@ -19,6 +19,9 @@ const LoginAdmin = ({ setIsAuthenticated }) => {
   useEffect(() => {
     const token = localStorage.getItem("adminToken"); 
     if (token) {
+      //set admin token in cookies
+      Cookie.set("adminToken", token);
+      
       setIsAuthenticated(true);
       navigate("/dashboard");
     }

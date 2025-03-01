@@ -1,16 +1,15 @@
 import React from 'react';
 import Carder from '../components/Card';
 import { Row, Col, Container } from 'react-bootstrap';
-import { useGetAllPendingAdsQuery } from '../slices/wallApiSlice';
+import { useGetAllRejectedAdsQuery } from '../slices/wallApiSlice';
 import { useGetAutosQuery } from '../slices/autoApiSlice';
-import { useGetAllPendingHelmetsQuery } from '../slices/helmetApiSlice';
-import Loader from '../components/Loader';
-import { Link } from 'react-router-dom';
+import { useGetAllRejectedHelmetsQuery } from '../slices/helmetApiSlice';
+import Loader from './Loader';
 
-const NewAdsScreen = () => {
-    const { data: walls, error: wallEr, isLoading: wallLoad } = useGetAllPendingAdsQuery();
+const ApprovedAds = () => {
+    const { data: walls, error: wallEr, isLoading: wallLoad } = useGetAllRejectedAdsQuery();
     const { data: autos, error: autoEr, isLoading: autoLoad } = useGetAutosQuery();
-    const { data: helmets, error: helmetEr, isLoading: helmetLoad } = useGetAllPendingHelmetsQuery();
+    const { data: helmets, error: helmetEr, isLoading: helmetLoad } = useGetAllRejectedHelmetsQuery();
 
     // Debugging: Check what data is coming from API
     console.log("Wall Ads Data:", walls);
@@ -21,24 +20,20 @@ const NewAdsScreen = () => {
         <div style={{ backgroundColor: 'rgba(240, 41, 41, 0.17)', minHeight: '100vh', padding: '20px' }}>
             <h1 className='text-center' style={{ color: 'black' }}>Latest Products</h1>
             <h3 className='text-center'>Review and manage ads submitted for approval</h3>
-            <div className="d-flex justify-content-center gap-3 my-3">
-                <Link className="btn btn-dark px-4 py-2" to="/approved-ads">Approved Ads</Link>
-                <Link className="btn btn-dark px-4 py-2" to="/rejected-ads">Rejected Ads</Link>
-            </div>
+
             <Container>
                 {/* WALL ADS SECTION */}
                 <section className="mt-4">
                     <h2 className="text-center">Wall Ads</h2>
                     {wallLoad ? <Loader /> : wallEr ? <h4 className="text-danger">Failed to load wall ads.</h4> : (
-                        walls?.wallAds?.length === 0 ? <h5 className="text-center">No pending wall ads available.</h5> : (
-                            <Row>
-                                {walls?.wallAds?.map(wall => (
-                                    <Col key={wall._id} sm={12} md={6} lg={4} xl={3}>
-                                        <Carder ads={wall} />
-                                    </Col>
-                                ))}
-                            </Row>
-                        ))}
+                        <Row>
+                            {walls?.wallAds?.map(wall => (
+                                <Col key={wall._id} sm={12} md={6} lg={4} xl={3}>
+                                    <Carder ads={wall} />
+                                </Col>
+                            ))}
+                        </Row>
+                    )}
                 </section>
 
                 {/* AUTO ADS SECTION */}
@@ -81,4 +76,4 @@ const NewAdsScreen = () => {
     );
 };
 
-export default NewAdsScreen;
+export default ApprovedAds;

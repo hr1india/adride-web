@@ -15,7 +15,32 @@ export const wallApiSlice = apiSlice.injectEndpoints({
             }),
             keepUnusedDataFor: 5,
         }),
+        changeAdStatus: builder.mutation({
+            query: ({Id, data} ) => ({
+                url: `${WALLS_URL}/change-status/${Id}`,
+                method: 'PUT',
+                body: data,
+            }),
+        }),
+        getAllPendingAds: builder.query({
+            query: () => ({
+                url: `${WALLS_URL}/ads/pending`,
+            }),
+            keepUnusedDataFor: 5,
+        }),
+        getAllApprovedAds: builder.query({
+            query: () => ({
+                url: `${WALLS_URL}/ads/approved`,
+            }),
+            keepUnusedDataFor: 5,
+        }),
+        getAllRejectedAds: builder.query({
+            query: () => ({
+                url: `${WALLS_URL}/ads/rejected`,
+            }),
+            keepUnusedDataFor: 5,
+        }),
     })
 });
 
-export const {useGetWallsQuery,useGetWallsByIdQuery} = wallApiSlice;
+export const {useGetWallsQuery, useGetWallsByIdQuery, useChangeAdStatusMutation, useGetAllPendingAdsQuery, useGetAllApprovedAdsQuery, useGetAllRejectedAdsQuery} = wallApiSlice;
