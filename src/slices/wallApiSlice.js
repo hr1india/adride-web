@@ -22,7 +22,25 @@ export const wallApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
+        getAllPendingAds: builder.query({
+            query: () => ({
+                url: `${WALLS_URL}/ads/pending`,
+            }),
+            keepUnusedDataFor: 5,
+        }),
+        getAllApprovedAds: builder.query({
+            query: () => ({
+                url: `${WALLS_URL}/ads/approved`,
+            }),
+            keepUnusedDataFor: 5,
+        }),
+        getAllRejectedAds: builder.query({
+            query: () => ({
+                url: `${WALLS_URL}/ads/rejected`,
+            }),
+            keepUnusedDataFor: 5,
+        }),
     })
 });
 
-export const {useGetWallsQuery, useGetWallsByIdQuery, useChangeAdStatusMutation} = wallApiSlice;
+export const {useGetWallsQuery, useGetWallsByIdQuery, useChangeAdStatusMutation, useGetAllPendingAdsQuery, useGetAllApprovedAdsQuery, useGetAllRejectedAdsQuery} = wallApiSlice;

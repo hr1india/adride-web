@@ -3,6 +3,7 @@ import { useGetWallsByIdQuery, useChangeAdStatusMutation } from "../slices/wallA
 import { Button, Col, Row } from "react-bootstrap"
 import Loader from "../components/Loader";
 import axios from "axios";
+import { BASE_URL, WALLS_URL } from "../constants";
 
 const AdDetailsScreen = () => {
   const { id } = useParams();
@@ -18,13 +19,30 @@ const AdDetailsScreen = () => {
   if (error) return <p>Error loading ad details.</p>;
 
   const handleApprove = async () => {
+    let typeOfAd = ad.type;
+    console.log(typeOfAd)
     try {
-      const res = await changeAdStatus({ Id: id, status: "approved" }).unwrap();
+      const res = await axios.put(`${BASE_URL}${WALLS_URL}/change-status/${id}`, {
+        status: "approved",
+      });
+      alert("Ad Approved ... reload the page to see the changes");
       console.log("Ad Approved:", res);
     } catch (err) {
       console.error("Error approving ad:", err);
     }
   };
+
+  const handleReject = async () => {
+    try {
+      const res = await axios.put(`${BASE_URL}${WALLS_URL}/change-status/${id}`, {
+        status: "rejected",
+      });
+      alert("Ad Rejected ... reload the page to see the changes");
+      console.log("Ad Rejected:", res);
+    } catch (err) {
+      console.error("Error rejecting ad:", err);
+    }
+  }
 
   return (
     <div className="max-w-lg mx-auto p-4 border rounded-lg shadow-lg bg-white">
@@ -57,7 +75,12 @@ const AdDetailsScreen = () => {
           >
             Approve Ad
           </Button>
-          <Button variant='danger' className='w-10 mt-3' style={{ backgroundColor: 'red' }}>
+          <Button 
+            variant='danger' 
+            className='w-10 mt-3' 
+            style={{ backgroundColor: 'red' }}
+            onClick={handleReject}
+            >
             Reject Ad
           </Button>
         </Col>
