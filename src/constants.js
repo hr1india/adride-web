@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.adride.space"; 
+export const BASE_URL = "https://api.adride.space"; 
 export const ADMIN_URL = "/api/admin"; 
 export const USERS_URL = "/api/auth";
 export const ADS_URL = "/api/ads";
